@@ -14,16 +14,386 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      action_items: {
+        Row: {
+          context: string | null
+          created_at: string
+          deadline_date: string | null
+          deadline_text: string | null
+          id: string
+          meeting_id: string
+          owner: string | null
+          priority: string
+          review_status: string
+          source_text: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          context?: string | null
+          created_at?: string
+          deadline_date?: string | null
+          deadline_text?: string | null
+          id?: string
+          meeting_id: string
+          owner?: string | null
+          priority?: string
+          review_status?: string
+          source_text?: string | null
+          title: string
+          user_id?: string
+        }
+        Update: {
+          context?: string | null
+          created_at?: string
+          deadline_date?: string | null
+          deadline_text?: string | null
+          id?: string
+          meeting_id?: string
+          owner?: string | null
+          priority?: string
+          review_status?: string
+          source_text?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "action_items_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "meetings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      agent_runs: {
+        Row: {
+          agent: string
+          created_at: string
+          details: Json
+          duration_ms: number | null
+          error: string | null
+          id: string
+          input_tokens: number | null
+          meeting_id: string | null
+          model: string | null
+          output_tokens: number | null
+          state: string
+          step: string
+          success: boolean | null
+          trace_id: string
+          user_id: string
+        }
+        Insert: {
+          agent: string
+          created_at?: string
+          details?: Json
+          duration_ms?: number | null
+          error?: string | null
+          id?: string
+          input_tokens?: number | null
+          meeting_id?: string | null
+          model?: string | null
+          output_tokens?: number | null
+          state: string
+          step: string
+          success?: boolean | null
+          trace_id: string
+          user_id?: string
+        }
+        Update: {
+          agent?: string
+          created_at?: string
+          details?: Json
+          duration_ms?: number | null
+          error?: string | null
+          id?: string
+          input_tokens?: number | null
+          meeting_id?: string | null
+          model?: string | null
+          output_tokens?: number | null
+          state?: string
+          step?: string
+          success?: boolean | null
+          trace_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_runs_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "meetings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      audit_logs: {
+        Row: {
+          action: string
+          created_at: string
+          details: Json
+          entity: string
+          entity_id: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          details?: Json
+          entity: string
+          entity_id?: string | null
+          id?: string
+          user_id?: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          details?: Json
+          entity?: string
+          entity_id?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      meetings: {
+        Row: {
+          agent_state: string
+          created_at: string
+          id: string
+          last_error: string | null
+          meeting_date: string
+          participants: string
+          title: string
+          transcript: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          agent_state?: string
+          created_at?: string
+          id?: string
+          last_error?: string | null
+          meeting_date?: string
+          participants?: string
+          title: string
+          transcript: string
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          agent_state?: string
+          created_at?: string
+          id?: string
+          last_error?: string | null
+          meeting_date?: string
+          participants?: string
+          title?: string
+          transcript?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string
+          id: string
+          kind: string
+          message: string
+          read: boolean
+          task_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: string
+          message: string
+          read?: boolean
+          task_id?: string | null
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: string
+          message?: string
+          read?: boolean
+          task_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          email: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      security_events: {
+        Row: {
+          created_at: string
+          id: string
+          kind: string
+          meeting_id: string | null
+          pattern: string
+          snippet: string | null
+          trace_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: string
+          meeting_id?: string | null
+          pattern: string
+          snippet?: string | null
+          trace_id?: string | null
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: string
+          meeting_id?: string | null
+          pattern?: string
+          snippet?: string | null
+          trace_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "security_events_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "meetings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          action_item_id: string | null
+          created_at: string
+          deadline: string | null
+          deadline_text: string | null
+          description: string | null
+          id: string
+          meeting_id: string | null
+          owner: string | null
+          priority: string
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          action_item_id?: string | null
+          created_at?: string
+          deadline?: string | null
+          deadline_text?: string | null
+          description?: string | null
+          id?: string
+          meeting_id?: string | null
+          owner?: string | null
+          priority?: string
+          status?: string
+          title: string
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          action_item_id?: string | null
+          created_at?: string
+          deadline?: string | null
+          deadline_text?: string | null
+          description?: string | null
+          id?: string
+          meeting_id?: string | null
+          owner?: string | null
+          priority?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_action_item_id_fkey"
+            columns: ["action_item_id"]
+            isOneToOne: false
+            referencedRelation: "action_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "meetings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +520,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
