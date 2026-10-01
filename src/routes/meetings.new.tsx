@@ -40,10 +40,10 @@ function NewMeeting() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     const p = schema.safeParse(f);
-    if (!p.success) return toast.error(p.error.issues[0]?.message);
+    if (!p.success) { toast.error(p.error.issues[0]?.message); return; }
     setBusy(true);
     const { data, error } = await supabase.from("meetings").insert({ ...p.data, user_id: user!.id }).select("id").single();
-    if (error || !data) { setBusy(false); return toast.error(error?.message ?? "Could not save meeting"); }
+    if (error || !data) { setBusy(false); toast.error(error?.message ?? "Could not save meeting"); return; }
     await supabase.from("audit_logs").insert({ user_id: user!.id, action: "meeting_created", entity: "meeting", entity_id: data.id });
     // Navigate immediately so the user sees live agent states, then run analysis.
     navigate({ to: "/meetings/$id", params: { id: data.id } });

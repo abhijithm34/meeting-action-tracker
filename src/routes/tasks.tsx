@@ -42,9 +42,10 @@ function Tasks() {
   const rows = (data ?? []).filter((t) => (fs === "ALL" || t.status === fs) && (fp === "ALL" || t.priority === fp) && (t.owner ?? "").toLowerCase().includes(fo.toLowerCase()));
 
   async function update(id: string, patch: Partial<Task>) {
-    const { error } = await supabase.from("tasks").update({ ...patch, updated_at: new Date().toISOString() }).eq("id", id);
-    if (error) return toast.error(error.message);
-    await supabase.from("audit_logs").insert({ user_id: user!.id, action: "task_updated", entity: "task", entity_id: id, details: patch });
+    const { meetings: _m, ...clean } = patch;
+    const { error } = await supabase.from("tasks").update({ ...clean, updated_at: new Date().toISOString() }).eq("id", id);
+    if (error) { toast.error(error.message); return; }
+    await supabase.from("audit_logs").insert({ user_id: user!.id, action: "task_updated", entity: "task", entity_id: id, details: clean as any });
     qc.invalidateQueries();
   }
 

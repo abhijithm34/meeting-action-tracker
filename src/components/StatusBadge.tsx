@@ -35,7 +35,7 @@ export function StatusBadge({ value, className }: { value: string; className?: s
   );
 }
 
-export function EmptyState({ title = "No data yet", hint }: { title?: string; hint?: string }) {
+export function EmptyState({ title = "No data yet", hint }: { title?: string; hint?: string | undefined }) {
   return (
     <div className="rounded-lg border border-dashed bg-card px-6 py-10 text-center">
       <p className="font-medium">{title}</p>
@@ -44,7 +44,7 @@ export function EmptyState({ title = "No data yet", hint }: { title?: string; hi
   );
 }
 
-export function PageHeader({ eyebrow, title, desc, actions }: { eyebrow?: string; title: string; desc?: string; actions?: React.ReactNode }) {
+export function PageHeader({ eyebrow, title, desc, actions }: { eyebrow?: string | undefined; title: string; desc?: string | undefined; actions?: React.ReactNode }) {
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4 border-b pb-5">
       <div>
