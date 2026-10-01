@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as MeetingsIndexRouteImport } from './routes/meetings.index'
 import { Route as MeetingsIdRouteImport } from './routes/meetings.$id'
 import { Route as MeetingsNewRouteImport } from './routes/meetings.new'
@@ -23,6 +26,21 @@ const IndexRoute = IndexRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TasksRoute = TasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MeetingsIndexRoute = MeetingsIndexRouteImport.update({
@@ -44,6 +62,9 @@ const MeetingsNewRoute = MeetingsNewRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/notifications': typeof NotificationsRoute
+  '/profile': typeof ProfileRoute
+  '/tasks': typeof TasksRoute
   '/meetings/$id': typeof MeetingsIdRoute
   '/meetings/new': typeof MeetingsNewRoute
   '/meetings/': typeof MeetingsIndexRoute
@@ -51,6 +72,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/notifications': typeof NotificationsRoute
+  '/profile': typeof ProfileRoute
+  '/tasks': typeof TasksRoute
   '/meetings/$id': typeof MeetingsIdRoute
   '/meetings/new': typeof MeetingsNewRoute
   '/meetings': typeof MeetingsIndexRoute
@@ -59,19 +83,41 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/notifications': typeof NotificationsRoute
+  '/profile': typeof ProfileRoute
+  '/tasks': typeof TasksRoute
   '/meetings/$id': typeof MeetingsIdRoute
   '/meetings/new': typeof MeetingsNewRoute
   '/meetings/': typeof MeetingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/meetings/$id' | '/meetings/new' | '/meetings/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/notifications'
+    | '/profile'
+    | '/tasks'
+    | '/meetings/$id'
+    | '/meetings/new'
+    | '/meetings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/meetings/$id' | '/meetings/new' | '/meetings'
+  to:
+    | '/'
+    | '/auth'
+    | '/notifications'
+    | '/profile'
+    | '/tasks'
+    | '/meetings/$id'
+    | '/meetings/new'
+    | '/meetings'
   id:
     | '__root__'
     | '/'
     | '/auth'
+    | '/notifications'
+    | '/profile'
+    | '/tasks'
     | '/meetings/$id'
     | '/meetings/new'
     | '/meetings/'
@@ -80,6 +126,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  NotificationsRoute: typeof NotificationsRoute
+  ProfileRoute: typeof ProfileRoute
+  TasksRoute: typeof TasksRoute
   MeetingsIdRoute: typeof MeetingsIdRoute
   MeetingsNewRoute: typeof MeetingsNewRoute
   MeetingsIndexRoute: typeof MeetingsIndexRoute
@@ -99,6 +148,27 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tasks': {
+      id: '/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof TasksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/meetings/': {
@@ -128,6 +198,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  NotificationsRoute: NotificationsRoute,
+  ProfileRoute: ProfileRoute,
+  TasksRoute: TasksRoute,
   MeetingsIdRoute: MeetingsIdRoute,
   MeetingsNewRoute: MeetingsNewRoute,
   MeetingsIndexRoute: MeetingsIndexRoute,
