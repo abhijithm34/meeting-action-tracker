@@ -17,6 +17,9 @@ import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as MeetingsIndexRouteImport } from './routes/meetings.index'
 import { Route as MeetingsIdRouteImport } from './routes/meetings.$id'
 import { Route as MeetingsNewRouteImport } from './routes/meetings.new'
+import { Route as MonitoringIndexRouteImport } from './routes/monitoring.index'
+import { Route as MonitoringTracesIndexRouteImport } from './routes/monitoring.traces.index'
+import { Route as MonitoringTracesTraceIdRouteImport } from './routes/monitoring.traces.$traceId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +61,21 @@ const MeetingsNewRoute = MeetingsNewRouteImport.update({
   path: '/meetings/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MonitoringIndexRoute = MonitoringIndexRouteImport.update({
+  id: '/monitoring/',
+  path: '/monitoring/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MonitoringTracesIndexRoute = MonitoringTracesIndexRouteImport.update({
+  id: '/monitoring/traces/',
+  path: '/monitoring/traces/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MonitoringTracesTraceIdRoute = MonitoringTracesTraceIdRouteImport.update({
+  id: '/monitoring/traces/$traceId',
+  path: '/monitoring/traces/$traceId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +86,9 @@ export interface FileRoutesByFullPath {
   '/meetings/$id': typeof MeetingsIdRoute
   '/meetings/new': typeof MeetingsNewRoute
   '/meetings/': typeof MeetingsIndexRoute
+  '/monitoring/': typeof MonitoringIndexRoute
+  '/monitoring/traces/$traceId': typeof MonitoringTracesTraceIdRoute
+  '/monitoring/traces/': typeof MonitoringTracesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +99,9 @@ export interface FileRoutesByTo {
   '/meetings/$id': typeof MeetingsIdRoute
   '/meetings/new': typeof MeetingsNewRoute
   '/meetings': typeof MeetingsIndexRoute
+  '/monitoring': typeof MonitoringIndexRoute
+  '/monitoring/traces/$traceId': typeof MonitoringTracesTraceIdRoute
+  '/monitoring/traces': typeof MonitoringTracesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +113,9 @@ export interface FileRoutesById {
   '/meetings/$id': typeof MeetingsIdRoute
   '/meetings/new': typeof MeetingsNewRoute
   '/meetings/': typeof MeetingsIndexRoute
+  '/monitoring/': typeof MonitoringIndexRoute
+  '/monitoring/traces/$traceId': typeof MonitoringTracesTraceIdRoute
+  '/monitoring/traces/': typeof MonitoringTracesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +128,9 @@ export interface FileRouteTypes {
     | '/meetings/$id'
     | '/meetings/new'
     | '/meetings/'
+    | '/monitoring/'
+    | '/monitoring/traces/$traceId'
+    | '/monitoring/traces/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +141,9 @@ export interface FileRouteTypes {
     | '/meetings/$id'
     | '/meetings/new'
     | '/meetings'
+    | '/monitoring'
+    | '/monitoring/traces/$traceId'
+    | '/monitoring/traces'
   id:
     | '__root__'
     | '/'
@@ -121,6 +154,9 @@ export interface FileRouteTypes {
     | '/meetings/$id'
     | '/meetings/new'
     | '/meetings/'
+    | '/monitoring/'
+    | '/monitoring/traces/$traceId'
+    | '/monitoring/traces/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +168,9 @@ export interface RootRouteChildren {
   MeetingsIdRoute: typeof MeetingsIdRoute
   MeetingsNewRoute: typeof MeetingsNewRoute
   MeetingsIndexRoute: typeof MeetingsIndexRoute
+  MonitoringIndexRoute: typeof MonitoringIndexRoute
+  MonitoringTracesTraceIdRoute: typeof MonitoringTracesTraceIdRoute
+  MonitoringTracesIndexRoute: typeof MonitoringTracesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +231,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MeetingsNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/monitoring/': {
+      id: '/monitoring/'
+      path: '/monitoring'
+      fullPath: '/monitoring/'
+      preLoaderRoute: typeof MonitoringIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/monitoring/traces/': {
+      id: '/monitoring/traces/'
+      path: '/monitoring/traces'
+      fullPath: '/monitoring/traces/'
+      preLoaderRoute: typeof MonitoringTracesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/monitoring/traces/$traceId': {
+      id: '/monitoring/traces/$traceId'
+      path: '/monitoring/traces/$traceId'
+      fullPath: '/monitoring/traces/$traceId'
+      preLoaderRoute: typeof MonitoringTracesTraceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +264,9 @@ const rootRouteChildren: RootRouteChildren = {
   MeetingsIdRoute: MeetingsIdRoute,
   MeetingsNewRoute: MeetingsNewRoute,
   MeetingsIndexRoute: MeetingsIndexRoute,
+  MonitoringIndexRoute: MonitoringIndexRoute,
+  MonitoringTracesTraceIdRoute: MonitoringTracesTraceIdRoute,
+  MonitoringTracesIndexRoute: MonitoringTracesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
