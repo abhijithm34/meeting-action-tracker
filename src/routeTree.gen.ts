@@ -14,6 +14,10 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as TasksRouteImport } from './routes/tasks'
+import { Route as ArchitectureIndexRouteImport } from './routes/architecture.index'
+import { Route as ArchitectureAgentsRouteImport } from './routes/architecture.agents'
+import { Route as ArchitectureDeploymentRouteImport } from './routes/architecture.deployment'
+import { Route as ArchitectureSecurityRouteImport } from './routes/architecture.security'
 import { Route as MeetingsIndexRouteImport } from './routes/meetings.index'
 import { Route as MeetingsIdRouteImport } from './routes/meetings.$id'
 import { Route as MeetingsNewRouteImport } from './routes/meetings.new'
@@ -44,6 +48,26 @@ const ProfileRoute = ProfileRouteImport.update({
 const TasksRoute = TasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArchitectureIndexRoute = ArchitectureIndexRouteImport.update({
+  id: '/architecture/',
+  path: '/architecture/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArchitectureAgentsRoute = ArchitectureAgentsRouteImport.update({
+  id: '/architecture/agents',
+  path: '/architecture/agents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArchitectureDeploymentRoute = ArchitectureDeploymentRouteImport.update({
+  id: '/architecture/deployment',
+  path: '/architecture/deployment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArchitectureSecurityRoute = ArchitectureSecurityRouteImport.update({
+  id: '/architecture/security',
+  path: '/architecture/security',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MeetingsIndexRoute = MeetingsIndexRouteImport.update({
@@ -83,8 +107,12 @@ export interface FileRoutesByFullPath {
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/tasks': typeof TasksRoute
+  '/architecture/agents': typeof ArchitectureAgentsRoute
+  '/architecture/deployment': typeof ArchitectureDeploymentRoute
+  '/architecture/security': typeof ArchitectureSecurityRoute
   '/meetings/$id': typeof MeetingsIdRoute
   '/meetings/new': typeof MeetingsNewRoute
+  '/architecture/': typeof ArchitectureIndexRoute
   '/meetings/': typeof MeetingsIndexRoute
   '/monitoring/': typeof MonitoringIndexRoute
   '/monitoring/traces/$traceId': typeof MonitoringTracesTraceIdRoute
@@ -96,8 +124,12 @@ export interface FileRoutesByTo {
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/tasks': typeof TasksRoute
+  '/architecture/agents': typeof ArchitectureAgentsRoute
+  '/architecture/deployment': typeof ArchitectureDeploymentRoute
+  '/architecture/security': typeof ArchitectureSecurityRoute
   '/meetings/$id': typeof MeetingsIdRoute
   '/meetings/new': typeof MeetingsNewRoute
+  '/architecture': typeof ArchitectureIndexRoute
   '/meetings': typeof MeetingsIndexRoute
   '/monitoring': typeof MonitoringIndexRoute
   '/monitoring/traces/$traceId': typeof MonitoringTracesTraceIdRoute
@@ -110,8 +142,12 @@ export interface FileRoutesById {
   '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/tasks': typeof TasksRoute
+  '/architecture/agents': typeof ArchitectureAgentsRoute
+  '/architecture/deployment': typeof ArchitectureDeploymentRoute
+  '/architecture/security': typeof ArchitectureSecurityRoute
   '/meetings/$id': typeof MeetingsIdRoute
   '/meetings/new': typeof MeetingsNewRoute
+  '/architecture/': typeof ArchitectureIndexRoute
   '/meetings/': typeof MeetingsIndexRoute
   '/monitoring/': typeof MonitoringIndexRoute
   '/monitoring/traces/$traceId': typeof MonitoringTracesTraceIdRoute
@@ -125,8 +161,12 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/profile'
     | '/tasks'
+    | '/architecture/agents'
+    | '/architecture/deployment'
+    | '/architecture/security'
     | '/meetings/$id'
     | '/meetings/new'
+    | '/architecture/'
     | '/meetings/'
     | '/monitoring/'
     | '/monitoring/traces/$traceId'
@@ -138,8 +178,12 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/profile'
     | '/tasks'
+    | '/architecture/agents'
+    | '/architecture/deployment'
+    | '/architecture/security'
     | '/meetings/$id'
     | '/meetings/new'
+    | '/architecture'
     | '/meetings'
     | '/monitoring'
     | '/monitoring/traces/$traceId'
@@ -151,8 +195,12 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/profile'
     | '/tasks'
+    | '/architecture/agents'
+    | '/architecture/deployment'
+    | '/architecture/security'
     | '/meetings/$id'
     | '/meetings/new'
+    | '/architecture/'
     | '/meetings/'
     | '/monitoring/'
     | '/monitoring/traces/$traceId'
@@ -165,8 +213,12 @@ export interface RootRouteChildren {
   NotificationsRoute: typeof NotificationsRoute
   ProfileRoute: typeof ProfileRoute
   TasksRoute: typeof TasksRoute
+  ArchitectureAgentsRoute: typeof ArchitectureAgentsRoute
+  ArchitectureDeploymentRoute: typeof ArchitectureDeploymentRoute
+  ArchitectureSecurityRoute: typeof ArchitectureSecurityRoute
   MeetingsIdRoute: typeof MeetingsIdRoute
   MeetingsNewRoute: typeof MeetingsNewRoute
+  ArchitectureIndexRoute: typeof ArchitectureIndexRoute
   MeetingsIndexRoute: typeof MeetingsIndexRoute
   MonitoringIndexRoute: typeof MonitoringIndexRoute
   MonitoringTracesTraceIdRoute: typeof MonitoringTracesTraceIdRoute
@@ -208,6 +260,34 @@ declare module '@tanstack/react-router' {
       path: '/tasks'
       fullPath: '/tasks'
       preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/architecture/': {
+      id: '/architecture/'
+      path: '/architecture'
+      fullPath: '/architecture/'
+      preLoaderRoute: typeof ArchitectureIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/architecture/agents': {
+      id: '/architecture/agents'
+      path: '/architecture/agents'
+      fullPath: '/architecture/agents'
+      preLoaderRoute: typeof ArchitectureAgentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/architecture/deployment': {
+      id: '/architecture/deployment'
+      path: '/architecture/deployment'
+      fullPath: '/architecture/deployment'
+      preLoaderRoute: typeof ArchitectureDeploymentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/architecture/security': {
+      id: '/architecture/security'
+      path: '/architecture/security'
+      fullPath: '/architecture/security'
+      preLoaderRoute: typeof ArchitectureSecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/meetings/': {
@@ -261,8 +341,12 @@ const rootRouteChildren: RootRouteChildren = {
   NotificationsRoute: NotificationsRoute,
   ProfileRoute: ProfileRoute,
   TasksRoute: TasksRoute,
+  ArchitectureAgentsRoute: ArchitectureAgentsRoute,
+  ArchitectureDeploymentRoute: ArchitectureDeploymentRoute,
+  ArchitectureSecurityRoute: ArchitectureSecurityRoute,
   MeetingsIdRoute: MeetingsIdRoute,
   MeetingsNewRoute: MeetingsNewRoute,
+  ArchitectureIndexRoute: ArchitectureIndexRoute,
   MeetingsIndexRoute: MeetingsIndexRoute,
   MonitoringIndexRoute: MonitoringIndexRoute,
   MonitoringTracesTraceIdRoute: MonitoringTracesTraceIdRoute,
